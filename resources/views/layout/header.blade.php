@@ -11,10 +11,10 @@
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-user"></i> {{ auth()->user()->email }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="/user/change-password" class="dropdown-item">
-                        <i class="fas fa-key mr-2"></i> Ubah Password
-                    </a>
+{{--                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+{{--                    <a href="/user/change-password" class="dropdown-item">--}}
+{{--                        <i class="fas fa-key mr-2"></i> Ubah Password--}}
+{{--                    </a>--}}
                     <a href="/logout" class="dropdown-item">
                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                     </a>

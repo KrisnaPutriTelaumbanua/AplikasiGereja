@@ -31,11 +31,10 @@ class Ibadah extends Model
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
-    // Relasi dengan model Pelayan (jika ada)
-    /*
-    public function pelayan()
+    // Di dalam App\Models\Ibadah.php
+    public function getFormattedJenisIbadahAttribute()
     {
-        return $this->hasMany(Pelayan::class, 'id_ibadah'); // Ganti 'id_ibadah' jika berbeda
+        return $this->nama_ibadah . ' - ' . \Carbon\Carbon::parse($this->tgl_ibadah)->format('d-m-Y') . ' - ' . $this->waktu_ibadah . ' - ' . ($this->kategori->nama_kategori ?? 'Tidak Ada Kategori');
     }
-    */
+
 }

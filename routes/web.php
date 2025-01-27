@@ -9,6 +9,7 @@ use App\Http\Controllers\IbadahController;
 use App\Http\Controllers\PelayanIbadahController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\SubdepartemenController;
+use App\Http\Controllers\PresensiController;
 
 
 Route::get('/', function () {
@@ -96,6 +97,13 @@ Route::group(['prefix' => 'subdepartemen'], function () {
     Route::get('/edit/{subdepartemen}', [SubdepartemenController::class, 'edit'])->name('subdepartemen.edit');
     Route::put('/update/{subdepartemen}', [SubdepartemenController::class, 'update'])->name('subdepartemen.update');
     Route::post('/delete', [SubdepartemenController::class, 'delete'])->name('subdepartemen.delete');
+});
+
+Route::group(['prefix' => 'presensi'], function () {
+    Route::get('/', [PresensiController::class, 'list'])->name('presensi.list');
+    Route::get('/add', [PresensiController::class, 'add'])->name('presensi.add');
+    Route::post('/insert', [PresensiController::class, 'insert'])->name('presensi.insert');
+    Route::post('/delete', [PresensiController::class, 'delete'])->name('presensi.delete');
 });
 
 

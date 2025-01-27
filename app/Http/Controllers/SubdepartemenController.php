@@ -35,10 +35,9 @@ class SubdepartemenController extends Controller
             'nama_subdepartemen' => 'required|string|max:100',
         ]);
 
-        // Menambahkan data subdepartemen baru
         Subdepartemen::create($validated);
 
-        // Redirect ke daftar subdepartemen dengan pesan sukses
+
         return redirect()->route('subdepartemen.list')->with('success', 'Subdepartemen berhasil ditambahkan!');
     }
 
@@ -72,18 +71,15 @@ class SubdepartemenController extends Controller
      */
     public function delete(Request $request)
     {
-        $idSubdepartemen = $request->id; // Mendapatkan ID subdepartemen dari request
-        $subdepartemen = Subdepartemen::find($idSubdepartemen); // Mencari subdepartemen berdasarkan ID
+        $idSubdepartemen = $request->id;
+        $subdepartemen = Subdepartemen::find($idSubdepartemen);
 
-        // Cek apakah subdepartemen ditemukan
         if ($subdepartemen === null) {
-            return response()->json([], 404); // Jika tidak ditemukan, kembalikan response 404
+            return response()->json([], 404);
         }
 
-        // Menghapus subdepartemen
         $subdepartemen->delete();
 
-        // Mengembalikan response 204 (No Content) setelah berhasil dihapus
         return response()->json([], 204);
     }
 }

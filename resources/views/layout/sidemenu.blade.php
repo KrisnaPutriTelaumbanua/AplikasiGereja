@@ -27,7 +27,21 @@
     </li>
 
     <li class="nav-item">
-        <a href="{{ url('/pelayan') }}" class="nav-link {{ Request::is('pelayan') ? 'btn btn-warning-hover' : '' }}">
+        <a href="{{ url('/departemen') }}" class="nav-link {{ Request::is('departemen') ? 'btn btn-warning' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>Departemen</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ url('/subdepartemen') }}" class="nav-link {{ Request::is('subdepartemen') ? 'btn btn-warning' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <span>SubDepartemen</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ url('/pelayan') }}" class="nav-link {{ Request::is('pelayan') ? 'btn btn-warning' : '' }}">
             <i class="nav-icon fas fa-users"></i>
             <span>Pelayan</span>
         </a>
@@ -54,19 +68,7 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a href="{{ url('/departemen') }}" class="nav-link {{ Request::is('departemen') ? 'btn btn-warning' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
-            <span>Departemen</span>
-        </a>
-    </li>
 
-    <li class="nav-item">
-        <a href="{{ url('/subdepartemen') }}" class="nav-link {{ Request::is('subdepartemen') ? 'btn btn-warning' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
-            <span>SubDepartemen</span>
-        </a>
-    </li>
 
 
 

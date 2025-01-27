@@ -33,7 +33,7 @@
                             </div>
                             @enderror
                         </div>
-                        <button class="btn btn-primary">Simpan</button>
+                        <button class="btn btn-dark">Simpan</button>
                     </div>
                 </div>
             </div>

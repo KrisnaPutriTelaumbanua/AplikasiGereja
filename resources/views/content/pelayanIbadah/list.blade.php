@@ -7,30 +7,50 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-dark" href="{{ url('/pelayanIbadah/add') }}">Tambah Data Pelayan Ibadah</a>
-                    <div class="table-responsive mt-2">
+                    <a class="btn btn-dark mb-3" href="{{ url('/pelayanIbadah/add') }}">Tambah Data Pelayan Ibadah</a>
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="bg-gradient-light">
                             <tr>
                                 <th>No</th>
                                 <th>Nama Pelayan</th>
+                                <th>Departemen</th>
+                                <th>Subdepartemen</th>
                                 <th>Jenis Ibadah</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($pelayanIbadahs->count() > 0)
-                                @php
-                                    $i = 1;
-                                @endphp
-                                @foreach($pelayanIbadahs as $data)
+                                @foreach($pelayanIbadahs as $index => $data)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $data->pelayan->nama_pelayan }}</td>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>
+                                            @if($data->pelayan)
+                                                {{ $data->pelayan->nama_pelayan }}
+                                            @else
+                                                Tidak Ada Pelayan
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($data->pelayan && $data->pelayan->departemen)
+                                                {{ $data->pelayan->departemen->nama_departemen }}
+                                            @else
+                                                Tidak Ada Departemen
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($data->pelayan && $data->pelayan->subdepartemen)
+                                                {{ $data->pelayan->subdepartemen->nama_subdepartemen }}
+                                            @else
+                                                Tidak Ada Subdepartemen
+                                            @endif
+                                        </td>
                                         <td>
                                             @if($data->ibadah)
-                                                {{-- Display formatted jenis ibadah: nama_ibadah, tgl_ibadah, waktu_ibadah, kategori --}}
-                                                {{ $data->ibadah->nama_ibadah . ' - ' . \Carbon\Carbon::parse($data->ibadah->tgl_ibadah)->format('d-m-Y') . ' - ' . $data->ibadah->waktu_ibadah . ' - ' . ($data->ibadah->kategori->nama_kategori ?? 'Tidak Ada Kategori') }}
+                                                {{ \Carbon\Carbon::parse($data->ibadah->tgl_ibadah)->format('d-m-Y') }}<br>
+                                                {{ $data->ibadah->waktu_ibadah }}<br>
+                                                {{ $data->ibadah->kategori->nama_kategori ?? 'Tidak Ada Kategori' }}
                                             @else
                                                 Tidak ada ibadah
                                             @endif
@@ -40,9 +60,9 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <button type="button"
+                                                    class="btn btn-danger btn-sm btn-hapus"
                                                     data-id-pelayan-ibadah="{{ $data->id_pelayan_ibadah }}"
-                                                    data-nama-pelayan="{{ $data->pelayan->nama_pelayan }}"
-                                                    class="btn btn-danger btn-sm btn-hapus">
+                                                    data-nama-pelayan="{{ $data->pelayan ? $data->pelayan->nama_pelayan : 'Tidak Ada Pelayan' }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </td>
@@ -50,12 +70,14 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="4" class="text-center">Data pelayan ibadah belum tersedia.</td>
+                                    <td colspan="6" class="text-center">Data pelayan ibadah belum tersedia.</td>
                                 </tr>
                             @endif
                             </tbody>
                         </table>
-                        {{ $pelayanIbadahs->links() }} <!-- Menampilkan pagination -->
+                        <div class="mt-3">
+                            {{ $pelayanIbadahs->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,11 +89,11 @@
     <script>
         $(function () {
             $('.btn-hapus').on('click', function () {
-                let idPelayanIbadah = $(this).data('id-pelayan-ibadah');
-                let namaPelayan = $(this).data('nama-pelayan');
+                const idPelayanIbadah = $(this).data('id-pelayan-ibadah');
+                const namaPelayan = $(this).data('nama-pelayan');
                 Swal.fire({
                     title: "Konfirmasi",
-                    text: `Anda yakin hapus data pelayan ${namaPelayan}?`,
+                    text: `Anda yakin ingin menghapus data ${namaPelayan}?`,
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
@@ -87,14 +109,14 @@
                                 _token: '{{ csrf_token() }}',
                                 id: idPelayanIbadah
                             },
-                            success: function () {
+                            success: function (response) {
                                 Swal.fire('Sukses', 'Data berhasil dihapus', 'success')
-                                    .then(function () {
+                                    .then(() => {
                                         window.location.reload();
                                     });
                             },
-                            error: function () {
-                                Swal.fire('Gagal', 'Terjadi kesalahan ketika hapus data', 'error');
+                            error: function (error) {
+                                Swal.fire('Gagal', 'Terjadi kesalahan ketika menghapus data', 'error');
                             }
                         });
                     }

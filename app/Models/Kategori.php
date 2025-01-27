@@ -13,7 +13,7 @@ class Kategori extends Model
     protected $table = 'categories';
 
     // Menetapkan primary key
-    protected $primaryKey = 'id_kategori'; // Ganti dengan nama kolom primary key
+    protected $primaryKey = 'id_kategori';
 
     // Jika id_kategori bukan auto-increment, tambahkan ini
     public $incrementing = false;

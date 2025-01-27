@@ -13,19 +13,11 @@
                             <label for="id_pelayan">Pilih Pelayan</label>
                             <select name="id_pelayan" id="id_pelayan" class="form-control @error('id_pelayan') is-invalid @enderror">
                                 <option value="">Pilih Pelayan</option>
-                                @foreach ($departemens as $departemen)
-                                    <optgroup label="{{ $departemen->nama_departemen }}">
-                                    @foreach ($departemen->subdepartemens as $subdepartemen)
-                                        <optgroup label="-- {{ $subdepartemen->nama_subdepartemen }}">
-                                            @foreach ($subdepartemen->pelayans as $pelayan)
-                                                <option value="{{ $pelayan->id_pelayan }}" {{ old('id_pelayan') == $pelayan->id_pelayan ? 'selected' : '' }}>
-                                                    {{ $pelayan->nama_pelayan }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
-                                        @endforeach
-                                        </optgroup>
-                                    @endforeach
+                                @foreach ($pelayans as $pelayan)
+                                    <option value="{{ $pelayan->id_pelayan }}" {{ old('id_pelayan') == $pelayan->id_pelayan ? 'selected' : '' }}>
+                                        {{ $pelayan->nama_pelayan }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('id_pelayan')
                             <div class="invalid-feedback">

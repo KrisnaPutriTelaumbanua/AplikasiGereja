@@ -42,7 +42,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-dark btn-block">LOGIN</button>
-        <a href="/register" class="btn btn-dark btn-block">Register</a>
+{{--        <a href="/register" class="btn btn-dark btn-block">Register</a>--}}
     </form>
 @endsection
 
